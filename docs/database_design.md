@@ -1,5 +1,5 @@
 ## Purpose:
-NexusOps needs persistent incident storage therefore there is database to be created. If there is no database, security analyst can only analyze the current incidents taken from the running program memory. When the program stops, the memory will be gone with the found incidents.
+NexusOps needs persistent storage so security analysts can retrieve and investigate incidents across application sessions. Without persistent storage, incident records held only in Python memory would be lost when the application stops.
 
 ## Tables:
 The database is built within two tables. Table users and incidents.
@@ -7,13 +7,13 @@ The database is built within two tables. Table users and incidents.
 - **Table incidents** includes five columns: id, name, severity, status, assigned_to.
 
 ## Relationship:
-These two tables is connected using column assigned_to in table incidents references column id in table users. With the usage of foreign key, those two columns in different table can be connected.
+The incidents.assigned_to column is a foreign key referencing users.id. One user can be assigned multiple incidents, while each incident can have at most one assigned user. With the usage of foreign key, those two columns in different table can be connected.
 
 ## Database Workflow:
 There are three Python files to run SQL program using sqlite3 packages: database_setup.py, database_seed.py, and database_query.py.
-- **database_setup.py** is for creating tables.
-- ***database_seed.py** is to insert and update data sample into the tables.
-- **database_query.py** is to retrieve data from the tables row.
+- **database_setup.py** creates tables.
+- ***database_seed.py** inserts sample users and incidents, ignoring records with existing primary keys.
+- **database_query.py** retrieves data from the tables row.
 
 ## Current Limitation:
 Note that SQLite is being used for learning, PostgreSQL integration is planned and the schema is still a prototype.
