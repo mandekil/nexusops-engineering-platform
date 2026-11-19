@@ -8,6 +8,11 @@ class Incident:
     # CHALLENGE B TASK A DAY 4
     # create method inside class (showing object can perform operations)
     def update_status(self, new_status):
+        incident_status = ["Open", "Investigating", "Resolved"]
+
+        if new_status not in incident_status:
+            raise ValueError("Invalid incident status")
+
         self.status = new_status
 
     # CHALLENGE B TASK C DAY 4
